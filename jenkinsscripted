@@ -10,6 +10,7 @@ git branch: 'development', credentialsId: '132dc2da-9741-4e05-8baf-e0907ebe745d'
  stage('executesonarreport') {
       sh "${mhome}/bin/mvn clean package sonar:sonar"
       }
+/*
   stage('uploadartifactsintonexus') {
        sh "${mhome}/bin/mvn clean package sonar:sonar deploy"
       
@@ -19,4 +20,5 @@ git branch: 'development', credentialsId: '132dc2da-9741-4e05-8baf-e0907ebe745d'
       sh "scp -o  StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.34.222:/opt/apache-tomcat-9.0.83/webapps"
 }
 }
+*/
 }
