@@ -1,0 +1,22 @@
+node{
+    echo "the job name is:${env.JOB_NAME}"
+def mhome = tool name:"maven3.8.6"
+stage('checkoutcode') {
+git branch: 'development', credentialsId: '132dc2da-9741-4e05-8baf-e0907ebe745d', url: 'https://github.com/akshayksiddu/maven-mithun-.git'
+ }
+ stage('build')  {
+ sh "${mhome}/bin/mvn clean package"
+ }
+ stage('executesonarreport') {
+      sh "${mhome}/bin/mvn clean package sonar:sonar"
+      }
+  stage('uploadartifactsintonexus') {
+       sh "${mhome}/bin/mvn clean package sonar:sonar deploy"
+      
+  }
+  stage('deploytotomcat') { 
+  sshagent(['e1659c8a-de5e-4db2-9cf6-b8fd0adb1a0f']) { 
+      sh "scp -o  StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.34.222:/opt/apache-tomcat-9.0.83/webapps"
+}
+}
+}
