@@ -22,12 +22,12 @@ sh "${mavenHome}/bin/mvn clean package"
 
 //Execute SonarQube Report
 stage('ExecuteSonarQubeReport'){
-sh "${mavenHome}/bin/mvn sonar:sonar"
+sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
 
 //UploadArtifcats Into Nexus
 stage('UploadArtifcatsIntoNexus'){
-sh "${mavenHome}/bin/mvn deploy"
+sh "${mavenHome}/bin/mvn clean deploy"
 }
 
 //Deploy App into Tomcat Server
